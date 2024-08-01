@@ -16,6 +16,7 @@
                     <td>Nama</td>
                     <td>Kontak</td>
                     <td>Alamat</td>
+                    <td>Product</td>
                     <td>Aksi</td>
                 </tr>
             </thead>
@@ -24,12 +25,20 @@
                     <tr>
                         <th>{{ $item->id }}</th>
                         <td>{{ $item->name }}</td>
-                        <td>{{ $item->contact }}</td>
+                        <td>{{ $item->contact }}</td> 
                         <td>{{ $item->address }}</td>
                         <td>
-                            <a href="{{ route('supplier.edit', $item->id) }}" class="btn btn-primary btn-sm">Edit</a>
-                            <a href="{{ route('supplier.destroy', $item->id) }}" class="btn btn-danger btn-sm">Delete</a>
-                            <a href="{{ route('product.create', $item->id) }}" class="btn btn-danger btn-sm">Tambah Product</a>
+                            [{{ $item->products->count() }}]
+                            <a href="{{ url('supplier/'. $item->id . '/product') }}" class="btn btn-secondary btn-sm ms-2"> Tambah/Lihat Product</a>
+                        </td>
+                        <td class="d-flex">
+                            <a href="{{ route('supplier.edit', $item->id) }}" class="btn btn-primary btn-sm me-2">Edit</a>
+                            <form action="{{ route('supplier.destroy', $item->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus supplier?')">Delete</button>
+                            </form>
+                            
                         </td>
                     </tr>
                 @empty 

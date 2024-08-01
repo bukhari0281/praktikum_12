@@ -6,27 +6,16 @@ use App\Models\Supplier;
 use Illuminate\Http\Request;
 
 class SupplierController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     */
+{ 
     public function index()
     {
         $suppliers = Supplier::all();
         return view('pages.supplier.index', compact('suppliers'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
+    } 
     public function create()
     {
         return view('pages.supplier.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
+    } 
     public function store(Request $request)
     {
         $request->validate([
@@ -37,37 +26,26 @@ class SupplierController extends Controller
 
         Supplier::create($request->all());
         return redirect()->route('pages.supplier.index')->with('success', 'Supplier created successfully.');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Supplier $supplier)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
+    } 
     public function edit(Supplier $supplier)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
+        return view('pages.supplier.edit', compact('supplier'));
+    } 
     public function update(Request $request, Supplier $supplier)
     {
-        //
-    }
+        $request->validate([
+            'name' => 'required',
+            'contact' => 'required',
+            'address' => 'required',
+        ]);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Supplier $supplier)
+        $supplier->update($request->all());
+        return redirect()->route('supplier.index')->with('success', 'Supplier updated successfully.');
+    } 
+    public function destroy(string $id)
     {
-        //
+        $supplier = Supplier::findOrFail($id);  
+        $supplier->delete();
+        return redirect()->route('supplier.index')->with('success', 'Supplier deleted successfully.');
     }
 }

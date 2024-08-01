@@ -14,12 +14,12 @@
               <span>Dashboard</span>
           </a>
       </li>
-      <li class="sidebar-item">
-          <a href="{{ route('product.index') }}" class="sidebar-link">
+      {{-- <li class="sidebar-item">
+          <a href="{{ route('supplier.product') }}" class="sidebar-link">
               <i class="lni lni-agenda"></i>
               <span>Product</span>
           </a>
-      </li> 
+      </li>  --}}
       <li class="sidebar-item">
           <a href="{{ route('supplier.index') }}" class="sidebar-link">
               <i class="lni lni-layout"></i>

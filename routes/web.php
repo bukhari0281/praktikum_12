@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +21,13 @@ Route::get('/', function () {
 });
 
 
-Route::resource('product', \App\Http\Controllers\ProductController::class);
-Route::resource('supplier', \App\Http\Controllers\SupplierController::class);
-Route::resource('order', \App\Http\Controllers\OrderController::class);
+Route::resource('supplier', SupplierController::class);
+Route::resource('order', OrderController::class);
+ 
+Route::get('supplier/{id}/product', [ProductController::class, 'index'])->name('supplier.product');
+Route::post('supplier/{id}/product', [ProductController::class, 'store'])->name('supplier.product.store');
+Route::get('supplier/product/{id}/delete', [ProductController::class, 'destroy'])->name('supplier.product.destroy');
+Route::put('supplier/product/{product}', [ProductController::class, 'update'])->name('supplier.product.update');
+
+
+
