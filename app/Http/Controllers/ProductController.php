@@ -8,15 +8,16 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 { 
-    public function index()
+    public function index(string $id)
     {
+        $supplier = Supplier::findOrFail($id);
         $products = Product::with('supplier')->get();
-        return view('products.index', compact('products'));
+        return view('pages.product.index', compact('products', 'supplier'));
     } 
     public function create()
     {
         $suppliers = Supplier::all();
-        return view('products.create', compact('suppliers'));
+        return view('pages.product.create', compact('suppliers'));
     } 
     public function store(Request $request)
     {
@@ -27,7 +28,7 @@ class ProductController extends Controller
             'price' => 'required',
         ]);
         Product::create($request->all());
-        return redirect()->route('products.index')->with('success', 'Product created successfully.');
+        return redirect()->route('pages.product.index')->with('success', 'Product created successfully.');
     } 
     public function show(Product $product)
     {

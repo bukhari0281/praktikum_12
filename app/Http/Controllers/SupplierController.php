@@ -13,7 +13,7 @@ class SupplierController extends Controller
     public function index()
     {
         $suppliers = Supplier::all();
-        return view('suppliers.index', compact('suppliers'));
+        return view('pages.supplier.index', compact('suppliers'));
     }
 
     /**
@@ -21,7 +21,7 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        return view('suppliers.create');
+        return view('pages.supplier.create');
     }
 
     /**
@@ -36,7 +36,7 @@ class SupplierController extends Controller
         ]);
 
         Supplier::create($request->all());
-        return redirect()->route('suppliers.index')->with('success', 'Supplier created successfully.');
+        return redirect()->route('pages.supplier.index')->with('success', 'Supplier created successfully.');
     }
 
     /**
